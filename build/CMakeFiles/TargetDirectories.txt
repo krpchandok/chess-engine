@@ -1,0 +1,5 @@
+C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/engine_core.dir
+C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/perft_test.dir
+C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/search_demo.dir
+C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/ZERO_CHECK.dir

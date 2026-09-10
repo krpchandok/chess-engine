@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\kirpa\Study\Chess-game\build\CMakeFiles\5e04e234e28a402c5e41757eaf0639b3\RUN_TESTS_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{5C431B48-B0DD-3F13-AA3B-4D2FC2751B88}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

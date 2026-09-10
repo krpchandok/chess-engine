@@ -5,7 +5,19 @@
       <FullPath>C:\Users\kirpa\Study\Chess-game\build\x64\Debug\ZERO_CHECK</FullPath>
     </ProjectOutput>
     <ProjectOutput>
+      <FullPath>C:\Users\kirpa\Study\Chess-game\build\Debug\chess_engine.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\kirpa\Study\Chess-game\build\Debug\mate_test.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\kirpa\Study\Chess-game\build\Debug\parallel_demo.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
       <FullPath>C:\Users\kirpa\Study\Chess-game\build\Debug\perft_test.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\Users\kirpa\Study\Chess-game\build\Debug\play_demo.exe</FullPath>
     </ProjectOutput>
     <ProjectOutput>
       <FullPath>C:\Users\kirpa\Study\Chess-game\build\Debug\search_demo.exe</FullPath>

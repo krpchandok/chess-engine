@@ -16,6 +16,15 @@
     <ClCompile Include="C:\Users\kirpa\Study\Chess-game\src\search.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\kirpa\Study\Chess-game\src\tt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\kirpa\Study\Chess-game\src\zobrist.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\kirpa\Study\Chess-game\src\parallel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\kirpa\Study\Chess-game\CMakeLists.txt" />

@@ -1493,3 +1493,180 @@ events:
       Microsoft (R) Incremental Linker Version 14.44.35228.0
       Copyright (C) Microsoft Corporation.  All rights reserved.
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CheckCXXSourceCompiles.cmake:103 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/FindThreads.cmake:162 (check_cxx_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/FindThreads.cmake:226 (_threads_check_libc)"
+      - "CMakeLists.txt:12 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/CMakeScratch/TryCompile-b1c3ht"
+      binary: "C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/CMakeScratch/TryCompile-b1c3ht"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_CXX_STDLIB_MODULES_JSON: ""
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/CMakeScratch/TryCompile-b1c3ht'
+        
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_2b052.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 2026-09-10 3:31:33 AM.
+        
+        Project "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-b1c3ht\\cmTC_2b052.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-b1c3ht\\Debug\\".
+          Creating directory "cmTC_2b052.dir\\Debug\\cmTC_2b052.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_2b052.dir\\Debug\\cmTC_2b052.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_2b052.dir\\Debug\\cmTC_2b052.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++20 /Fo"cmTC_2b052.dir\\Debug\\\\" /Fd"cmTC_2b052.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-b1c3ht\\src.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35228 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++20 /Fo"cmTC_2b052.dir\\Debug\\\\" /Fd"cmTC_2b052.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-b1c3ht\\src.cxx"
+          src.cxx
+        C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-b1c3ht\\src.cxx(1,10): error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-b1c3ht\\cmTC_2b052.vcxproj]
+        Done Building Project "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-b1c3ht\\cmTC_2b052.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-b1c3ht\\cmTC_2b052.vcxproj" (default target) (1) ->
+        (ClCompile target) -> 
+          C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-b1c3ht\\src.cxx(1,10): error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-b1c3ht\\cmTC_2b052.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.23
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CheckLibraryExists.cmake:154 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/FindThreads.cmake:175 (check_library_exists)"
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/FindThreads.cmake:238 (_threads_check_lib)"
+      - "CMakeLists.txt:12 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthreads"
+    directories:
+      source: "C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/CMakeScratch/TryCompile-mtffuz"
+      binary: "C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/CMakeScratch/TryCompile-mtffuz"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_CXX_STDLIB_MODULES_JSON: ""
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/CMakeScratch/TryCompile-mtffuz'
+        
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_30258.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 2026-09-10 3:31:33 AM.
+        
+        Project "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mtffuz\\cmTC_30258.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mtffuz\\Debug\\".
+          Creating directory "cmTC_30258.dir\\Debug\\cmTC_30258.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_30258.dir\\Debug\\cmTC_30258.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_30258.dir\\Debug\\cmTC_30258.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++20 /Fo"cmTC_30258.dir\\Debug\\\\" /Fd"cmTC_30258.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mtffuz\\CheckFunctionExists.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35228 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++20 /Fo"cmTC_30258.dir\\Debug\\\\" /Fd"cmTC_30258.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mtffuz\\CheckFunctionExists.cxx"
+          CheckFunctionExists.cxx
+        Link:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mtffuz\\Debug\\cmTC_30258.exe" /INCREMENTAL /ILK:"cmTC_30258.dir\\Debug\\cmTC_30258.ilk" /NOLOGO pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/CMakeScratch/TryCompile-mtffuz/Debug/cmTC_30258.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/CMakeScratch/TryCompile-mtffuz/Debug/cmTC_30258.lib" /MACHINE:X64  /machine:x64 cmTC_30258.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mtffuz\\cmTC_30258.vcxproj]
+        Done Building Project "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mtffuz\\cmTC_30258.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mtffuz\\cmTC_30258.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mtffuz\\cmTC_30258.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.29
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/CheckLibraryExists.cmake:154 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/FindThreads.cmake:175 (check_library_exists)"
+      - "C:/Program Files/CMake/share/cmake-4.3/Modules/FindThreads.cmake:239 (_threads_check_lib)"
+      - "CMakeLists.txt:12 (find_package)"
+    checks:
+      - "Looking for pthread_create in pthread"
+    directories:
+      source: "C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/CMakeScratch/TryCompile-hy1jj2"
+      binary: "C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/CMakeScratch/TryCompile-hy1jj2"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_CXX_STDLIB_MODULES_JSON: ""
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/CMakeScratch/TryCompile-hy1jj2'
+        
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_230e6.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild version 17.14.40+3e7442088 for .NET Framework
+        Build started 2026-09-10 3:31:34 AM.
+        
+        Project "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hy1jj2\\cmTC_230e6.vcxproj" on node 1 (default targets).
+        PrepareForBuild:
+          Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
+          Creating directory "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hy1jj2\\Debug\\".
+          Creating directory "cmTC_230e6.dir\\Debug\\cmTC_230e6.tlog\\".
+        InitializeBuildStatus:
+          Creating "cmTC_230e6.dir\\Debug\\cmTC_230e6.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_230e6.dir\\Debug\\cmTC_230e6.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++20 /Fo"cmTC_230e6.dir\\Debug\\\\" /Fd"cmTC_230e6.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hy1jj2\\CheckFunctionExists.cxx"
+          Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35228 for x64
+          Copyright (C) Microsoft Corporation.  All rights reserved.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GR /std:c++20 /Fo"cmTC_230e6.dir\\Debug\\\\" /Fd"cmTC_230e6.dir\\Debug\\vc143.pdb" /external:W1 /TP /errorReport:queue "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hy1jj2\\CheckFunctionExists.cxx"
+          CheckFunctionExists.cxx
+        Link:
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hy1jj2\\Debug\\cmTC_230e6.exe" /INCREMENTAL /ILK:"cmTC_230e6.dir\\Debug\\cmTC_230e6.ilk" /NOLOGO pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/CMakeScratch/TryCompile-hy1jj2/Debug/cmTC_230e6.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/CMakeScratch/TryCompile-hy1jj2/Debug/cmTC_230e6.lib" /MACHINE:X64  /machine:x64 cmTC_230e6.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hy1jj2\\cmTC_230e6.vcxproj]
+        Done Building Project "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hy1jj2\\cmTC_230e6.vcxproj" (default targets) -- FAILED.
+        
+        Build FAILED.
+        
+        "C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hy1jj2\\cmTC_230e6.vcxproj" (default target) (1) ->
+        (Link target) -> 
+          LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\Users\\kirpa\\Study\\Chess-game\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hy1jj2\\cmTC_230e6.vcxproj]
+        
+            0 Warning(s)
+            1 Error(s)
+        
+        Time Elapsed 00:00:00.28
+        
+      exitCode: 1
+...

@@ -1,6 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <array>
+#include <string>
 
 enum PieceCode : int8_t {
     EMPTY = -1,
@@ -8,6 +9,11 @@ enum PieceCode : int8_t {
     BP, BN, BB, BR, BQ, BK,
     PIECE_CODE_NB = 12
 };
+
+constexpr uint8_t CASTLE_WK = 1;
+constexpr uint8_t CASTLE_WQ = 2;
+constexpr uint8_t CASTLE_BK = 4;
+constexpr uint8_t CASTLE_BQ = 8;
 
 class Board {
     std::array<uint64_t, PIECE_CODE_NB> bitboards{};
@@ -20,10 +26,13 @@ class Board {
 
     int en_passant_square = -1;
     bool white_to_move = true;
+    uint8_t castling_rights = CASTLE_WK | CASTLE_WQ | CASTLE_BK | CASTLE_BQ;
+
 
 public:
     Board();
     void initialize();
+    void set_from_fen(const std::string& fen);
     void update_occupancy();
     void update_mailbox();
 
@@ -55,4 +64,7 @@ public:
     uint64_t get_black_rooks()   const { return bitboards[BR]; }
     uint64_t get_black_queens()  const { return bitboards[BQ]; }
     uint64_t get_black_king()    const { return bitboards[BK]; }
+
+    uint8_t get_castling_rights() const { return castling_rights; }
+    void set_castling_rights(uint8_t rights) { castling_rights = rights; }
 };

@@ -10,4 +10,7 @@ struct Move {
     bool is_en_passant = false;
     bool is_double_push = false;
     PromoPiece promotion = PromoPiece::NONE;
+
+    bool is_castle_kingside = false;
+    bool is_castle_queenside = false;
 };

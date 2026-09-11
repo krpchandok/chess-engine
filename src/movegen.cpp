@@ -97,6 +97,59 @@ namespace {
             }
         }
     }
+
+    void add_castling_moves(std::vector<Move>& moves, const Board& board, bool is_white) {
+        uint8_t rights = board.get_castling_rights();
+        uint8_t king_side_flag = is_white ? CASTLE_WK : CASTLE_BK;
+        uint8_t queen_side_flag = is_white ? CASTLE_WQ : CASTLE_BQ;
+
+        if (!(rights & (king_side_flag | queen_side_flag))) return;
+
+        // Trust the king bitboard, not a hardcoded square: a stale/garbage
+        // castling right must not fabricate a move from an empty or
+        // wrong-piece square (make_move would then read piece_at() == EMPTY).
+        uint64_t king_bb = is_white ? board.get_white_king() : board.get_black_king();
+        if (king_bb == 0) return;
+        int king_sq = first_set_bit(king_bb);
+        if (king_sq != (is_white ? 4 : 60)) return;
+
+        uint64_t occ = board.get_all_occupancy();
+        uint64_t own_rooks = is_white ? board.get_white_rooks() : board.get_black_rooks();
+
+        if (is_in_check(board, is_white)) return;
+
+        if (rights & king_side_flag) {
+            int rook_sq = is_white ? 7 : 63;
+            int f_sq = king_sq + 1, g_sq = king_sq + 2;
+            bool rook_present = own_rooks & (1ULL << rook_sq);
+            bool squares_empty = !(occ & ((1ULL << f_sq) | (1ULL << g_sq)));
+            bool path_safe = !is_square_attacked(board, f_sq, !is_white) &&
+                              !is_square_attacked(board, g_sq, !is_white);
+            if (rook_present && squares_empty && path_safe) {
+                Move m;
+                m.from = static_cast<uint8_t>(king_sq);
+                m.to = static_cast<uint8_t>(g_sq);
+                m.is_castle_kingside = true;
+                moves.push_back(m);
+            }
+        }
+
+        if (rights & queen_side_flag) {
+            int rook_sq = is_white ? 0 : 56;
+            int d_sq = king_sq - 1, c_sq = king_sq - 2, b_sq = king_sq - 3;
+            bool rook_present = own_rooks & (1ULL << rook_sq);
+            bool squares_empty = !(occ & ((1ULL << d_sq) | (1ULL << c_sq) | (1ULL << b_sq)));
+            bool path_safe = !is_square_attacked(board, d_sq, !is_white) &&
+                              !is_square_attacked(board, c_sq, !is_white);
+            if (rook_present && squares_empty && path_safe) {
+                Move m;
+                m.from = static_cast<uint8_t>(king_sq);
+                m.to = static_cast<uint8_t>(c_sq);
+                m.is_castle_queenside = true;
+                moves.push_back(m);
+            }
+        }
+    }
 }
 
 std::vector<Move> generate_pseudo_legal_moves(const Board& board, bool is_white) {
@@ -114,6 +167,7 @@ std::vector<Move> generate_pseudo_legal_moves(const Board& board, bool is_white)
                   is_white ? board.get_white_king() : board.get_black_king(), king_logic);
 
     add_pawn_moves(moves, board, is_white);
+    add_castling_moves(moves, board, is_white);
 
     return moves;
 }
@@ -175,6 +229,10 @@ Board make_move(const Board& board, const Move& move) {
     bool is_white = board.is_white_to_move();
 
     int8_t moving_piece = board.piece_at(move.from);
+    // Defensive: a well-formed move list never names an empty from-square, but
+    // if one slips through, bail rather than indexing bitboards[EMPTY] (-1).
+    if (moving_piece == EMPTY) return next;
+
     uint64_t from_bit = 1ULL << move.from;
     uint64_t to_bit = 1ULL << move.to;
 
@@ -209,6 +267,31 @@ Board make_move(const Board& board, const Move& move) {
     } else {
         next.set_bitboard(moving_pc, next.get_bitboard(moving_pc) | to_bit);
     }
+
+    if (move.is_castle_kingside || move.is_castle_queenside) {
+        PieceCode rook_pc = is_white ? WR : BR;
+        int rook_from, rook_to;
+        if (move.is_castle_kingside) {
+            rook_from = is_white ? 7 : 63;
+            rook_to   = is_white ? 5 : 61;
+        } else {
+            rook_from = is_white ? 0 : 56;
+            rook_to   = is_white ? 3 : 59;
+        }
+        uint64_t rook_bb = next.get_bitboard(rook_pc);
+        rook_bb &= ~(1ULL << rook_from);
+        rook_bb |= (1ULL << rook_to);
+        next.set_bitboard(rook_pc, rook_bb);
+    }
+
+    uint8_t rights = board.get_castling_rights();
+    if (moving_piece == WK) rights &= ~(CASTLE_WK | CASTLE_WQ);
+    if (moving_piece == BK) rights &= ~(CASTLE_BK | CASTLE_BQ);
+    if (move.from == 0 || move.to == 0)   rights &= ~CASTLE_WQ;
+    if (move.from == 7 || move.to == 7)   rights &= ~CASTLE_WK;
+    if (move.from == 56 || move.to == 56) rights &= ~CASTLE_BQ;
+    if (move.from == 63 || move.to == 63) rights &= ~CASTLE_BK;
+    next.set_castling_rights(rights);
 
     next.set_en_passant_square(move.is_double_push ? (is_white ? move.to - 8 : move.to + 8) : -1);
 

@@ -5,6 +5,8 @@ C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/search_demo.dir
 C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/parallel_demo.dir
 C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/play_demo.dir
 C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/mate_test.dir
+C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/generate_selfplay_data.dir
+C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/nnue_demo.dir
 C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/RUN_TESTS.dir
 C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/ALL_BUILD.dir
 C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/ZERO_CHECK.dir

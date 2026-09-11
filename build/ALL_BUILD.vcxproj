@@ -182,9 +182,17 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{B163D06A-9018-3921-ADD1-0B676AF13245}</Project>
       <Name>engine_core</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\kirpa\Study\Chess-game\build\generate_selfplay_data.vcxproj">
+      <Project>{FC04DFAA-FF3F-319E-B773-527ED6D4F562}</Project>
+      <Name>generate_selfplay_data</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\Users\kirpa\Study\Chess-game\build\mate_test.vcxproj">
       <Project>{7BAC098D-9766-3C58-B05A-7F66CA046234}</Project>
       <Name>mate_test</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\kirpa\Study\Chess-game\build\nnue_demo.vcxproj">
+      <Project>{D5D6A23F-50F0-3137-85DE-8AEAD5885430}</Project>
+      <Name>nnue_demo</Name>
     </ProjectReference>
     <ProjectReference Include="C:\Users\kirpa\Study\Chess-game\build\parallel_demo.vcxproj">
       <Project>{BD7A0D8B-FE30-344A-A717-D63E8DC3102D}</Project>

@@ -25,6 +25,9 @@
     <ClCompile Include="C:\Users\kirpa\Study\Chess-game\src\parallel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\kirpa\Study\Chess-game\src\nnue_eval.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\kirpa\Study\Chess-game\CMakeLists.txt" />

@@ -1,0 +1,10 @@
+^C:\USERS\KIRPA\STUDY\CHESS-GAME\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/kirpa/Study/Chess-game -BC:/Users/kirpa/Study/Chess-game/build --check-stamp-file C:/Users/kirpa/Study/Chess-game/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

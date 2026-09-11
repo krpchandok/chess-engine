@@ -6,3 +6,4 @@ C:\Users\kirpa\Study\Chess-game\src\search.cpp;C:\Users\kirpa\Study\Chess-game\b
 C:\Users\kirpa\Study\Chess-game\src\tt.cpp;C:\Users\kirpa\Study\Chess-game\build\engine_core.dir\Debug\tt.obj
 C:\Users\kirpa\Study\Chess-game\src\zobrist.cpp;C:\Users\kirpa\Study\Chess-game\build\engine_core.dir\Debug\zobrist.obj
 C:\Users\kirpa\Study\Chess-game\src\parallel.cpp;C:\Users\kirpa\Study\Chess-game\build\engine_core.dir\Debug\parallel.obj
+C:\Users\kirpa\Study\Chess-game\src\nnue_eval.cpp;C:\Users\kirpa\Study\Chess-game\build\engine_core.dir\Debug\nnue_eval.obj

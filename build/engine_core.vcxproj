@@ -312,6 +312,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\kirpa\Study\Chess-game\src\tt.cpp" />
     <ClCompile Include="C:\Users\kirpa\Study\Chess-game\src\zobrist.cpp" />
     <ClCompile Include="C:\Users\kirpa\Study\Chess-game\src\parallel.cpp" />
+    <ClCompile Include="C:\Users\kirpa\Study\Chess-game\src\nnue_eval.cpp" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

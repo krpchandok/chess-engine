@@ -1,0 +1,9 @@
+C:\Users\kirpa\Study\Chess-game\src\board.cpp;C:\Users\kirpa\Study\Chess-game\build\engine_core.dir\Release\board.obj
+C:\Users\kirpa\Study\Chess-game\src\piece.cpp;C:\Users\kirpa\Study\Chess-game\build\engine_core.dir\Release\piece.obj
+C:\Users\kirpa\Study\Chess-game\src\movegen.cpp;C:\Users\kirpa\Study\Chess-game\build\engine_core.dir\Release\movegen.obj
+C:\Users\kirpa\Study\Chess-game\src\eval.cpp;C:\Users\kirpa\Study\Chess-game\build\engine_core.dir\Release\eval.obj
+C:\Users\kirpa\Study\Chess-game\src\search.cpp;C:\Users\kirpa\Study\Chess-game\build\engine_core.dir\Release\search.obj
+C:\Users\kirpa\Study\Chess-game\src\tt.cpp;C:\Users\kirpa\Study\Chess-game\build\engine_core.dir\Release\tt.obj
+C:\Users\kirpa\Study\Chess-game\src\zobrist.cpp;C:\Users\kirpa\Study\Chess-game\build\engine_core.dir\Release\zobrist.obj
+C:\Users\kirpa\Study\Chess-game\src\parallel.cpp;C:\Users\kirpa\Study\Chess-game\build\engine_core.dir\Release\parallel.obj
+C:\Users\kirpa\Study\Chess-game\src\nnue_eval.cpp;C:\Users\kirpa\Study\Chess-game\build\engine_core.dir\Release\nnue_eval.obj

@@ -57,13 +57,10 @@ void Board::set_from_fen(const std::string& fen) {
         }
     }
 
-    // Side to move.
     while (i < fen.size() && fen[i] == ' ') i++;
     white_to_move = (i < fen.size() && fen[i] == 'w');
     while (i < fen.size() && fen[i] != ' ') i++;
 
-    // Castling rights. A missing field or '-' means no castling; anything not
-    // listed is cleared, so a FEN can never leave a stale constructor default.
     while (i < fen.size() && fen[i] == ' ') i++;
     castling_rights = 0;
     for (; i < fen.size() && fen[i] != ' '; ++i) {
@@ -72,11 +69,10 @@ void Board::set_from_fen(const std::string& fen) {
             case 'Q': castling_rights |= CASTLE_WQ; break;
             case 'k': castling_rights |= CASTLE_BK; break;
             case 'q': castling_rights |= CASTLE_BQ; break;
-            default: break;  // '-' or unrecognised
+            default: break;
         }
     }
 
-    // En passant target square (e.g. "e3"), or '-' when there is none.
     while (i < fen.size() && fen[i] == ' ') i++;
     en_passant_square = -1;
     if (i < fen.size() && fen[i] != ' ' && fen[i] != '-') {
@@ -120,4 +116,20 @@ void Board::update_mailbox() {
     for (int pc = WP; pc <= BK; ++pc) {
         stamp(bitboards[pc], static_cast<int8_t>(pc));
     }
+}
+
+void Board::add_piece(PieceCode pc, int square) {
+    uint64_t bit = 1ULL << square;
+    bitboards[pc] |= bit;
+    mailbox[square] = pc;
+    if (pc <= WK) white_occupancy |= bit; else black_occupancy |= bit;
+    all_occupancy |= bit;
+}
+
+void Board::remove_piece(PieceCode pc, int square) {
+    uint64_t bit = 1ULL << square;
+    bitboards[pc] &= ~bit;
+    mailbox[square] = EMPTY;
+    if (pc <= WK) white_occupancy &= ~bit; else black_occupancy &= ~bit;
+    all_occupancy &= ~bit;
 }

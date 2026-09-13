@@ -40,9 +40,9 @@ int main() {
     bool found_correct_move = (result.best_move.from == 4 && result.best_move.to == 60);
     std::cout << "found the mating move (e1e8): " << found_correct_move << "\n";
 
-    Board after = make_move(board, result.best_move);
-    bool black_has_moves = !generate_legal_moves(after, false).empty();
-    bool black_in_check = is_in_check(after, false);
+    make_move(board, result.best_move);
+    bool black_has_moves = !generate_legal_moves(board, false).empty();
+    bool black_in_check = is_in_check(board, false);
 
     std::cout << "black in check after: " << black_in_check << "\n";
     std::cout << "black has legal moves after: " << black_has_moves << "\n";

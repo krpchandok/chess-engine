@@ -67,4 +67,7 @@ public:
 
     uint8_t get_castling_rights() const { return castling_rights; }
     void set_castling_rights(uint8_t rights) { castling_rights = rights; }
+
+    void add_piece(PieceCode pc, int square);
+    void remove_piece(PieceCode pc, int square);
 };

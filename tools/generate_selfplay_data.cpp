@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
             // 10% random moves during play keeps games from repeating
             // the same lines every self-play game.
             Move move = pick_move(board, is_white, play_depth, 0.1);
-            board = make_move(board, move);
+            make_move(board, move);
             is_white = !is_white;
         }
 

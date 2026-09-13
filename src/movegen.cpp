@@ -105,9 +105,6 @@ namespace {
 
         if (!(rights & (king_side_flag | queen_side_flag))) return;
 
-        // Trust the king bitboard, not a hardcoded square: a stale/garbage
-        // castling right must not fabricate a move from an empty or
-        // wrong-piece square (make_move would then read piece_at() == EMPTY).
         uint64_t king_bb = is_white ? board.get_white_king() : board.get_black_king();
         if (king_bb == 0) return;
         int king_sq = first_set_bit(king_bb);
@@ -215,62 +212,29 @@ bool is_in_check(const Board& board, bool is_white) {
 
 std::vector<Move> generate_legal_moves(const Board& board, bool is_white) {
     std::vector<Move> legal;
+    Board scratch = board;
     for (const auto& m : generate_pseudo_legal_moves(board, is_white)) {
-        Board next = make_move(board, m);
-        if (!is_in_check(next, is_white)) {
+        UndoInfo undo = make_move(scratch, m);
+        if (!is_in_check(scratch, is_white)) {
             legal.push_back(m);
         }
+        unmake_move(scratch, m, undo);
     }
     return legal;
 }
 
-Board make_move(const Board& board, const Move& move) {
-    Board next = board;
-    bool is_white = board.is_white_to_move();
-
-    int8_t moving_piece = board.piece_at(move.from);
-    // Defensive: a well-formed move list never names an empty from-square, but
-    // if one slips through, bail rather than indexing bitboards[EMPTY] (-1).
-    if (moving_piece == EMPTY) return next;
-
-    uint64_t from_bit = 1ULL << move.from;
-    uint64_t to_bit = 1ULL << move.to;
-
-    if (move.is_capture && !move.is_en_passant) {
-        int8_t captured = board.piece_at(move.to);
-        if (captured != EMPTY) {
-            auto pc = static_cast<PieceCode>(captured);
-            next.set_bitboard(pc, next.get_bitboard(pc) & ~to_bit);
-        }
-    }
-
-    if (move.is_en_passant) {
-        int captured_sq = is_white ? move.to - 8 : move.to + 8;
-        PieceCode captured_pc = is_white ? BP : WP;
-        next.set_bitboard(captured_pc, next.get_bitboard(captured_pc) & ~(1ULL << captured_sq));
-    }
-
-    auto moving_pc = static_cast<PieceCode>(moving_piece);
-    uint64_t moving_bb = next.get_bitboard(moving_pc) & ~from_bit;
-    next.set_bitboard(moving_pc, moving_bb);
-
-    if (move.promotion != PromoPiece::NONE) {
-        PieceCode promo_pc;
+namespace {
+    PieceCode promoted_piece_code(const Move& move, bool is_white) {
         switch (move.promotion) {
-            case PromoPiece::QUEEN:  promo_pc = is_white ? WQ : BQ; break;
-            case PromoPiece::ROOK:   promo_pc = is_white ? WR : BR; break;
-            case PromoPiece::BISHOP: promo_pc = is_white ? WB : BB; break;
-            case PromoPiece::KNIGHT: promo_pc = is_white ? WN : BN; break;
-            default:                 promo_pc = moving_pc; break;
+            case PromoPiece::QUEEN:  return is_white ? WQ : BQ;
+            case PromoPiece::ROOK:   return is_white ? WR : BR;
+            case PromoPiece::BISHOP: return is_white ? WB : BB;
+            case PromoPiece::KNIGHT: return is_white ? WN : BN;
+            default:                 return EMPTY;
         }
-        next.set_bitboard(promo_pc, next.get_bitboard(promo_pc) | to_bit);
-    } else {
-        next.set_bitboard(moving_pc, next.get_bitboard(moving_pc) | to_bit);
     }
 
-    if (move.is_castle_kingside || move.is_castle_queenside) {
-        PieceCode rook_pc = is_white ? WR : BR;
-        int rook_from, rook_to;
+    void castle_rook_squares(const Move& move, bool is_white, int& rook_from, int& rook_to) {
         if (move.is_castle_kingside) {
             rook_from = is_white ? 7 : 63;
             rook_to   = is_white ? 5 : 61;
@@ -278,26 +242,92 @@ Board make_move(const Board& board, const Move& move) {
             rook_from = is_white ? 0 : 56;
             rook_to   = is_white ? 3 : 59;
         }
-        uint64_t rook_bb = next.get_bitboard(rook_pc);
-        rook_bb &= ~(1ULL << rook_from);
-        rook_bb |= (1ULL << rook_to);
-        next.set_bitboard(rook_pc, rook_bb);
+    }
+}
+
+UndoInfo make_move(Board& board, const Move& move) {
+    UndoInfo undo;
+    bool is_white = board.is_white_to_move();
+
+    undo.prev_en_passant = board.get_en_passant_square();
+    undo.prev_castling_rights = board.get_castling_rights();
+
+    int8_t moving_piece = board.piece_at(move.from);
+    undo.moving_piece = moving_piece;
+    if (moving_piece == EMPTY) return undo;
+
+    auto moving_pc = static_cast<PieceCode>(moving_piece);
+
+    if (move.is_en_passant) {
+        int captured_sq = is_white ? move.to - 8 : move.to + 8;
+        PieceCode captured_pc = is_white ? BP : WP;
+        undo.captured_piece = captured_pc;
+        undo.captured_square = captured_sq;
+        board.remove_piece(captured_pc, captured_sq);
+    } else if (move.is_capture) {
+        int8_t captured = board.piece_at(move.to);
+        if (captured != EMPTY) {
+            undo.captured_piece = captured;
+            undo.captured_square = move.to;
+            board.remove_piece(static_cast<PieceCode>(captured), move.to);
+        }
     }
 
-    uint8_t rights = board.get_castling_rights();
+    board.remove_piece(moving_pc, move.from);
+
+    PieceCode placed_pc = moving_pc;
+    if (move.promotion != PromoPiece::NONE) {
+        placed_pc = promoted_piece_code(move, is_white);
+    }
+    board.add_piece(placed_pc, move.to);
+
+    if (move.is_castle_kingside || move.is_castle_queenside) {
+        PieceCode rook_pc = is_white ? WR : BR;
+        int rook_from, rook_to;
+        castle_rook_squares(move, is_white, rook_from, rook_to);
+        board.remove_piece(rook_pc, rook_from);
+        board.add_piece(rook_pc, rook_to);
+    }
+
+    uint8_t rights = undo.prev_castling_rights;
     if (moving_piece == WK) rights &= ~(CASTLE_WK | CASTLE_WQ);
     if (moving_piece == BK) rights &= ~(CASTLE_BK | CASTLE_BQ);
     if (move.from == 0 || move.to == 0)   rights &= ~CASTLE_WQ;
     if (move.from == 7 || move.to == 7)   rights &= ~CASTLE_WK;
     if (move.from == 56 || move.to == 56) rights &= ~CASTLE_BQ;
     if (move.from == 63 || move.to == 63) rights &= ~CASTLE_BK;
-    next.set_castling_rights(rights);
+    board.set_castling_rights(rights);
 
-    next.set_en_passant_square(move.is_double_push ? (is_white ? move.to - 8 : move.to + 8) : -1);
+    board.set_en_passant_square(move.is_double_push ? (is_white ? move.to - 8 : move.to + 8) : -1);
+    board.set_white_to_move(!is_white);
 
-    next.set_white_to_move(!is_white);
-    next.update_occupancy();
-    next.update_mailbox();
+    return undo;
+}
 
-    return next;
+void unmake_move(Board& board, const Move& move, const UndoInfo& undo) {
+    bool is_white = !board.is_white_to_move();
+    board.set_white_to_move(is_white);
+    board.set_castling_rights(undo.prev_castling_rights);
+    board.set_en_passant_square(undo.prev_en_passant);
+
+    if (undo.moving_piece == EMPTY) return;
+
+    if (move.is_castle_kingside || move.is_castle_queenside) {
+        PieceCode rook_pc = is_white ? WR : BR;
+        int rook_from, rook_to;
+        castle_rook_squares(move, is_white, rook_from, rook_to);
+        board.remove_piece(rook_pc, rook_to);
+        board.add_piece(rook_pc, rook_from);
+    }
+
+    PieceCode placed_pc = static_cast<PieceCode>(undo.moving_piece);
+    if (move.promotion != PromoPiece::NONE) {
+        placed_pc = promoted_piece_code(move, is_white);
+    }
+    board.remove_piece(placed_pc, move.to);
+    board.add_piece(static_cast<PieceCode>(undo.moving_piece), move.from);
+
+    if (undo.captured_piece != EMPTY) {
+        board.add_piece(static_cast<PieceCode>(undo.captured_piece), undo.captured_square);
+    }
 }

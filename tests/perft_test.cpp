@@ -3,13 +3,14 @@
 #include "piece.hpp"
 #include <iostream>
 
-long long perft(const Board& board, int depth, bool is_white) {
+long long perft(Board& board, int depth, bool is_white) {
     if (depth == 0) return 1;
 
     long long nodes = 0;
     for (const auto& move : generate_legal_moves(board, is_white)) {
-        Board next = make_move(board, move);
-        nodes += perft(next, depth - 1, !is_white);
+        UndoInfo undo = make_move(board, move);
+        nodes += perft(board, depth - 1, !is_white);
+        unmake_move(board, move, undo);
     }
     return nodes;
 }

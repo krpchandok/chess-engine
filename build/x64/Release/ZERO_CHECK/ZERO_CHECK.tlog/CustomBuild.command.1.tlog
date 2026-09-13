@@ -1,0 +1,10 @@
+^C:\USERS\KIRPA\STUDY\CHESS-GAME\BUILD\CMAKEFILES\5E04E234E28A402C5E41757EAF0639B3\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/kirpa/Study/Chess-game -BC:/Users/kirpa/Study/Chess-game/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/kirpa/Study/Chess-game/build/chess_engine_oop.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -13,7 +13,7 @@ namespace {
     // `weights` is optional (nullptr means "use the classical evaluate()").
     // Passing it through lets search_nnue() reuse this exact same search
     // tree/pruning logic and only swap out the leaf scoring function.
-    int alpha_beta(const Board& board, int depth, int alpha, int beta, bool is_white,
+    int alpha_beta(Board& board, int depth, int alpha, int beta, bool is_white,
                     const NNUEWeights* weights) {
         if (depth == 0) {
             int white_score = (weights != nullptr && weights->loaded)
@@ -29,8 +29,9 @@ namespace {
 
         int best = std::numeric_limits<int>::min() + 1;
         for (const auto& move : moves) {
-            Board next = make_move(board, move);
-            int score = -alpha_beta(next, depth - 1, -beta, -alpha, !is_white, weights);
+            UndoInfo undo = make_move(board, move);
+            int score = -alpha_beta(board, depth - 1, -beta, -alpha, !is_white, weights);
+            unmake_move(board, move, undo);
 
             best = std::max(best, score);
             alpha = std::max(alpha, score);
@@ -39,9 +40,10 @@ namespace {
         return best;
     }
 
-    SearchResult search_impl(const Board& board, int depth, const NNUEWeights* weights) {
+    SearchResult search_impl(const Board& board_in, int depth, const NNUEWeights* weights) {
         SearchResult result;
-        bool is_white = board.is_white_to_move();
+        bool is_white = board_in.is_white_to_move();
+        Board board = board_in;
 
         auto moves = generate_legal_moves(board, is_white);
         if (moves.empty()) return result;
@@ -50,8 +52,9 @@ namespace {
         int beta = std::numeric_limits<int>::max() - 1;
 
         for (const auto& move : moves) {
-            Board next = make_move(board, move);
-            int score = -alpha_beta(next, depth - 1, -beta, -alpha, !is_white, weights);
+            UndoInfo undo = make_move(board, move);
+            int score = -alpha_beta(board, depth - 1, -beta, -alpha, !is_white, weights);
+            unmake_move(board, move, undo);
 
             if (!result.has_move || score > result.score) {
                 result.score = score;

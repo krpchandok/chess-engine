@@ -198,6 +198,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{BD7A0D8B-FE30-344A-A717-D63E8DC3102D}</Project>
       <Name>parallel_demo</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\kirpa\Study\Chess-game\build\perft_extended_test.vcxproj">
+      <Project>{DD221682-328B-3EE4-A059-5EF2F9CB49B3}</Project>
+      <Name>perft_extended_test</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\Users\kirpa\Study\Chess-game\build\perft_test.vcxproj">
       <Project>{AA94E806-9012-3524-A80F-085E8DE91CA6}</Project>
       <Name>perft_test</Name>

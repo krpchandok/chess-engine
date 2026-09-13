@@ -82,7 +82,7 @@ namespace {
                     std::cerr << "info string illegal move in position command: " << move_str << "\n";
                     break;
                 }
-                board = make_move(board, *move);
+                make_move(board, *move);
             }
         }
     }

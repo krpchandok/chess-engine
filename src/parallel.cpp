@@ -9,7 +9,7 @@
 #include <vector>
 
 namespace {
-    int alpha_beta(const Board& board, int depth, int alpha, int beta, bool is_white,
+    int alpha_beta(Board& board, int depth, int alpha, int beta, bool is_white,
                    TranspositionTable& tt, const std::atomic<bool>& stop,
                    std::atomic<long long>& node_counter) {
         if (stop.load(std::memory_order_relaxed)) return 0;
@@ -44,8 +44,9 @@ namespace {
         Move best_move = moves[0];
 
         for (const auto& move : moves) {
-            Board next = make_move(board, move);
-            int score = -alpha_beta(next, depth - 1, -beta, -alpha, !is_white, tt, stop, node_counter);
+            UndoInfo undo = make_move(board, move);
+            int score = -alpha_beta(board, depth - 1, -beta, -alpha, !is_white, tt, stop, node_counter);
+            unmake_move(board, move, undo);
 
             if (score > best) {
                 best = score;
@@ -63,10 +64,11 @@ namespace {
         return best;
     }
 
-    SearchResult search_root(const Board& board, int depth, TranspositionTable& tt,
+    SearchResult search_root(const Board& board_in, int depth, TranspositionTable& tt,
                               const std::atomic<bool>& stop, std::atomic<long long>& node_counter) {
         SearchResult result;
-        bool is_white = board.is_white_to_move();
+        bool is_white = board_in.is_white_to_move();
+        Board board = board_in;
 
         auto moves = generate_legal_moves(board, is_white);
         if (moves.empty()) return result;
@@ -77,8 +79,9 @@ namespace {
         for (const auto& move : moves) {
             if (stop.load(std::memory_order_relaxed)) break;
 
-            Board next = make_move(board, move);
-            int score = -alpha_beta(next, depth - 1, -beta, -alpha, !is_white, tt, stop, node_counter);
+            UndoInfo undo = make_move(board, move);
+            int score = -alpha_beta(board, depth - 1, -beta, -alpha, !is_white, tt, stop, node_counter);
+            unmake_move(board, move, undo);
 
             if (!result.has_move || score > result.score) {
                 result.score = score;

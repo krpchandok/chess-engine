@@ -105,7 +105,7 @@ int main() {
                 std::cout << "Illegal move, try again.\n";
                 continue;
             }
-            board = make_move(board, *move);
+            make_move(board, *move);
         } else {
             std::cout << "Engine is thinking...\n";
             SearchLimits limits;
@@ -117,7 +117,7 @@ int main() {
                       << "  (depth " << result.depth_reached
                       << ", " << result.nodes_searched << " nodes)\n";
 
-            board = make_move(board, result.best_move);
+            make_move(board, result.best_move);
         }
     }
 
